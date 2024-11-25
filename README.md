@@ -1,5 +1,6 @@
 ![image](https://github.com/user-attachments/assets/c4298141-6794-45a3-9a76-04532368c8ae)# PLT-API-Detection
-step by step :
+<h3 align="left">Step by step: </h3>
+<p align="left">
 1. install dependecy #pip install flask torch torchvision pillow
    ![image](https://github.com/user-attachments/assets/1a9d9c58-c374-41ac-b598-93a8dbf55bfa)
 
@@ -28,3 +29,4 @@ step by step :
 
 11. jika berhasil, akan muncul seperti ini :
     ![image](https://github.com/user-attachments/assets/34f7c466-ad66-4d6c-ba19-46a59d8e727e)
+</p>
