@@ -1,17 +1,17 @@
-PLT-API-Detection
+## PLT-API-Detection
 <h3 align="left">Step by step: </h3>
-<p align="left">
-1.  install dependecy #pip install flask torch torchvision pillow
-    ![image](https://github.com/user-attachments/assets/1a9d9c58-c374-41ac-b598-93a8dbf55bfa)
 
-2.  jalankan program #python (namafile).py ~contoh python electronics.py
+1.  **install dependecy #pip install flask torch torchvision pillow**
+
+2.  **jalankan program #python (namafile).py ~contoh python electronics.py**
     ![image](https://github.com/user-attachments/assets/30a6e52d-fc4a-4358-a9f8-618dcdd24209)
 
-3.  buka Postman
-4.  klik New
+3.  **buka Postman**
+
+4.  **klik New**
     ![image](https://github.com/user-attachments/assets/b4f5d469-23c2-43fe-9dd9-e63cb7e61393)
 
-5.  pilih HTTP
+5.  **pilih HTTP**
     ![image](https://github.com/user-attachments/assets/098c3e34-c452-4fec-90c5-5902ac2c5707)
 
 6.  salin link http://127.0.0.1:8000/electronics
@@ -30,4 +30,4 @@ PLT-API-Detection
 
 11. jika berhasil, akan muncul seperti ini :
     ![image](https://github.com/user-attachments/assets/34f7c466-ad66-4d6c-ba19-46a59d8e727e)
-</p>
+
