@@ -11,7 +11,6 @@
 4.  **klik New**
 
 5.  **pilih HTTP**
-    ![image](https://github.com/user-attachments/assets/098c3e34-c452-4fec-90c5-5902ac2c5707)
 
 6.  salin link http://127.0.0.1:8000/electronics
    
