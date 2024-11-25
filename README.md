@@ -20,8 +20,7 @@
 8.  buka tab bagian Body, pilih form-data, untuk Key isi "file" berupa file, Value berisi hasil upload gambar
     ![image](https://github.com/user-attachments/assets/73183b23-7662-4789-93eb-f3aba7707155)
 
-9.  pilih file gambar, contoh :
-    ![image](https://github.com/user-attachments/assets/aa7018e8-e57e-4638-9ca3-3d0b40e7ae16)
+9.  pilih file gambar
 
 10. setelah file di upload kemudian send
     ![image](https://github.com/user-attachments/assets/c3c3968c-331e-4599-9eb8-1215ca8b1c9a)
