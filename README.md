@@ -9,7 +9,6 @@
 3.  **buka Postman**
 
 4.  **klik New**
-    ![image](https://github.com/user-attachments/assets/b4f5d469-23c2-43fe-9dd9-e63cb7e61393)
 
 5.  **pilih HTTP**
     ![image](https://github.com/user-attachments/assets/098c3e34-c452-4fec-90c5-5902ac2c5707)
