@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template, jsonify
 import torch
 from torchvision import models, transforms
 from PIL import Image
@@ -11,15 +11,9 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Define Electronics Categories (example based on ImageNet labels)
-ELECTRONICS_CLASSES = {
-    'laptop': [0],  # replace with actual ImageNet indices for laptop, etc.
-    'smartphone': [1],  # same as above, adjust for smartphone
-    'speaker': [2],
-    'smartwatch': [3],
-    'kulkas': [4],
-    'air_conditioner': [5]
-}
+# Load ImageNet labels
+with open("imagenet-simple-labels.json", "r") as f:
+    IMAGENET_LABELS = json.load(f)
 
 # Load a pre-trained ResNet model
 model = models.resnet18(pretrained=True)
@@ -40,7 +34,7 @@ def predict_image(image_path):
         image_path (str): Path to the image file.
     
     Returns:
-        dict: Predicted label and confidence score.
+        str: Predicted label.
     """
     try:
         image = Image.open(image_path).convert("RGB")
@@ -48,39 +42,47 @@ def predict_image(image_path):
 
         with torch.no_grad():
             outputs = model(image)
-            probabilities = torch.nn.functional.softmax(outputs[0], dim=0)
-            confidence, predicted_idx = torch.max(probabilities, 0)
+            _, predicted_idx = torch.max(outputs, 1)
 
-        # Here we match the predicted class index with our ELECTRONICS_CLASSES
-        predicted_label = None
-        for label, indices in ELECTRONICS_CLASSES.items():
-            if predicted_idx.item() in indices:
-                predicted_label = label
-                break
-
-        return {"class": predicted_label, "confidence": confidence.item()}
+        # Map the predicted index to ImageNet labels
+        predicted_label = IMAGENET_LABELS[predicted_idx.item()]
+        return predicted_label
 
     except Exception as e:
-        return {"error": str(e)}
+        return f"Error: {str(e)}"
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-@app.route("/predict_electronics", methods=["POST"])
-def predict_electronics():
+@app.route("/", methods=["GET", "POST"])
+def index():
     """
-    Handle image upload via POST request for electronic devices.
-
-    Returns:
-        JSON response with prediction result.
+    Handle the main route to upload an image and display the prediction result.
     """
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part in the request"}), 400
-    
-    file = request.files['file']
+    result = None
+    if request.method == "POST":
+        file = request.files.get("image")  # Expect 'image' as the key
+        if not file or file.filename == "":
+            result = "No file selected. Please upload an image."
+        else:
+            try:
+                # Save the uploaded file
+                file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+                file.save(file_path)
+
+                # Predict the uploaded image
+                result = predict_image(file_path)
+
+            except Exception as e:
+                result = f"Error: {str(e)}"
+
+    return render_template("index.html", result=result)
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    """
+    Endpoint to predict the class of an uploaded image, returns the result in JSON format.
+    """
+    file = request.files.get("image")  # Expect 'image' as the key
     if not file or file.filename == "":
-        return jsonify({"error": "No file selected"}), 400
+        return jsonify({"error": "No file selected. Please upload an image."}), 400
 
     try:
         # Save the uploaded file
@@ -90,14 +92,11 @@ def predict_electronics():
         # Predict the uploaded image
         result = predict_image(file_path)
 
-        # Clean up the saved file
-        os.remove(file_path)
-
-        # Pass the result to the template for rendering
-        return render_template("index.html", prediction=result)
+        # Return prediction result in JSON
+        return jsonify({"prediction": result})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(debug=True, port=5002)
