@@ -40,8 +40,10 @@
 13.  pilih file gambar
 
 14. setelah file di upload kemudian send
-    ![image](https://github.com/user-attachments/assets/c3c3968c-331e-4599-9eb8-1215ca8b1c9a)
+    ![image](https://github.com/user-attachments/assets/0939b49b-d144-476c-b923-57d371511899)
+
 
 15. jika berhasil, akan muncul seperti ini :
-    ![image](https://github.com/user-attachments/assets/34f7c466-ad66-4d6c-ba19-46a59d8e727e)
+    ![image](https://github.com/user-attachments/assets/4f1cf5b9-fde5-4c53-8ba1-449e9a0a0f9f)
+
 
